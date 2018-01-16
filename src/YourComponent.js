@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-/*
-* Use this component as a launching-pad to build your functionality.
-*
-*/
-export default class YourComponent extends Component {
-
+export class MapContainer extends Component {
   render() {
+    console.log(this.props.google);
+    
     return (
-      <div style={divStyle}>
-		  <h1> Put your solution here!</h1>
-      </div>
+      <Map google={this.props.google} zoom={14}>
+
+        <Marker name={'Current location'} />
+        {/* onClose={this.onInfoWindowClose} */}
+        <InfoWindow> 
+          <div>
+            <h1>{'HERE!!!'}</h1>
+          </div>
+        </InfoWindow>
+      </Map>
     );
   }
 }
 
-var divStyle = {
-  border: 'red',
-  borderWidth: 2,
-  borderStyle: 'solid',
-  padding: 20
-};
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyCVH8e45o3d-5qmykzdhGKd1-3xYua5D2A'
+})(MapContainer)
