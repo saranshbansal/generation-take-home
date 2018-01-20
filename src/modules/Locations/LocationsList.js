@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Location from './Location';
-import myData from '../../store_directory.json';
+import myData from '../../../store_directory.json';
 
 export default class LocationsList extends Component {
   constructor(props) {
@@ -13,10 +13,25 @@ export default class LocationsList extends Component {
     this.onSelectLocation = this.onSelectLocation.bind(this);
   }
 
-  onSelectLocation = (e) => {
-    this.setState({
-      activeLocations: { ...this.state.activeLocations, e }
+  onSelectLocation = (name, address, e) => {
+    if (typeof e !== 'undefined') {
+      e.stopPropagation();
+    }
+    let activeLocations = [...this.state.activeLocations] || [];
+    let addFlg = true;
+    Object.keys(activeLocations).map((i) => {
+      if (activeLocations[i].name === name) {
+        addFlg = false;
+      }
     });
+    if (addFlg) {
+      activeLocations.push({
+        name, address
+      });
+      this.setState({
+        activeLocations
+      });
+    }
   };
 
   render() {
@@ -28,6 +43,7 @@ export default class LocationsList extends Component {
           key={index}
           name={name}
           address={address}
+          onSelectLocation={this.onSelectLocation}
         />
       );
     });
