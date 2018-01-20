@@ -32,8 +32,10 @@ export default class LocationsList extends Component {
       );
     });
     return (
-      <div>
-        {optionsMarkup}
+      <div className="container" style={{marginTop: '60px'}}>
+        <div className="row">
+          {optionsMarkup}
+        </div>
       </div>
     );
   }
