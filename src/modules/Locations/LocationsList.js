@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { GoogleApiWrapper } from 'google-maps-react';
 import Location from './Location';
 import myData from '../../../store_directory.json';
 
-export default class LocationsList extends Component {
+class LocationsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,16 +28,37 @@ export default class LocationsList extends Component {
       }
     });
     if (addFlg) {
-      activeLocations.push({
-        name, address
-      });
+      const latlong = this.findLocation(name, address, activeLocations, this);
     } else {
       activeLocations.splice(index, 1);
+      this.setState({
+        activeLocations
+      });
     }
-    this.setState({
-      activeLocations
-    });
   };
+
+  findLocation(name, address, activeLocations, context) {
+    console.log(context.state);
+    
+    console.log('Locating Latitudes/Longitudes of: [' + address + ']');
+    const google = this.props.google;
+    const geocoder = new google.maps.Geocoder();
+    if (address && address.trim() !== '') {
+      geocoder.geocode({ address }, function (results, status) {
+        if (status == 'OK') {
+          console.log('Location found: [' + results[0].geometry.location + ']');
+          activeLocations.push({
+            name, address, latlong: results[0].geometry.location
+          });
+          context.setState({
+            activeLocations
+          });
+        } else {
+          console.log('Cannot find the location.');
+        }
+      });
+    }
+  }
 
   render() {
     let optionsMarkup = Object.values(myData).map((row, index) => {
@@ -70,3 +92,7 @@ export default class LocationsList extends Component {
     );
   }
 }
+
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyCVH8e45o3d-5qmykzdhGKd1-3xYua5D2A'
+})(LocationsList)
