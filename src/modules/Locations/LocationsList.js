@@ -7,7 +7,7 @@ export default class LocationsList extends Component {
     super(props);
     this.state = {
       markerArray: myData,
-      activeLocations: {}
+      activeLocations: []
     }
     // binding this to event-handler functions
     this.onSelectLocation = this.onSelectLocation.bind(this);
@@ -19,30 +19,44 @@ export default class LocationsList extends Component {
     }
     let activeLocations = [...this.state.activeLocations] || [];
     let addFlg = true;
+    let index = -1;
     Object.keys(activeLocations).map((i) => {
       if (activeLocations[i].name === name) {
         addFlg = false;
+        index = i;
       }
     });
     if (addFlg) {
       activeLocations.push({
         name, address
       });
-      this.setState({
-        activeLocations
-      });
+    } else {
+      activeLocations.splice(index, 1);
     }
+    this.setState({
+      activeLocations
+    });
   };
 
   render() {
     let optionsMarkup = Object.values(myData).map((row, index) => {
       const name = row.Name;
       const address = row.Address;
+      let className = 'card card-info';
+      let tooltip = 'Add to favorites';
+      Object.keys(this.state.activeLocations).map((i) => {
+        if (this.state.activeLocations[i].name === name) {
+          className='card card-success';
+          tooltip='Remove from favorites';
+        }
+      });
       return (
         <Location
           key={index}
           name={name}
           address={address}
+          className={className}
+          tooltip={tooltip}
           onSelectLocation={this.onSelectLocation}
         />
       );
