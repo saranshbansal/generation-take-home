@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Grid } from 'react-bootstrap';
-import MapContainer from './MapContainer';
-import LocationList from './Locations/LocationsList';
+import MapContainer from './MapContainer/MapContainer';
+import LocationList from './StoreContainer/LocationsList';
 import myData from '../../store_directory.json';
 
 export default class App extends Component {

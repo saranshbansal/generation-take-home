@@ -10,8 +10,6 @@ class LocationsList extends Component {
       markerArray: myData,
       activeLocations: []
     }
-    // binding this to event-handler functions
-    this.onSelectLocation = this.onSelectLocation.bind(this);
   }
 
   onSelectLocation = (name, address, e) => {
