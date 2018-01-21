@@ -1,3 +1,32 @@
 a {
     cursor: pointer;
 }
+
+.card span.badge {
+    position: relative;
+    top: -8px;
+    left: 8px;
+    font-size: 20px;
+    padding: 6px;
+    border-radius: 20px;
+    -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+    box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+}
+
+.card span.badge:hover {
+	opacity: 0.8;
+}
+
+.card span.badge:active {
+	transform: scale(0.93,0.93) translateY(2px)
+}
+
+.mouse-pointer {
+    cursor: pointer;
+}
+
+.yellow {
+    background: #80D651 !important;;
+    color: white;
+}

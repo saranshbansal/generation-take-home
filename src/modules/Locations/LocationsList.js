@@ -38,15 +38,12 @@ class LocationsList extends Component {
   };
 
   findLocation(name, address, activeLocations, context) {
-    console.log(context.state);
-    
-    console.log('Locating Latitudes/Longitudes of: [' + address + ']');
     const google = this.props.google;
     const geocoder = new google.maps.Geocoder();
     if (address && address.trim() !== '') {
       geocoder.geocode({ address }, function (results, status) {
         if (status == 'OK') {
-          console.log('Location found: [' + results[0].geometry.location + ']');
+          console.log('Location found: [' + address + ': ' +results[0].geometry.location + ']');
           activeLocations.push({
             name, address, latlong: results[0].geometry.location
           });
@@ -66,10 +63,12 @@ class LocationsList extends Component {
       const address = row.Address;
       let className = 'card card-info';
       let tooltip = 'Add to favorites';
+      let isFavorited = false;
       Object.keys(this.state.activeLocations).map((i) => {
         if (this.state.activeLocations[i].name === name) {
           className='card card-success';
           tooltip='Remove from favorites';
+          isFavorited = true;
         }
       });
       return (
@@ -79,6 +78,7 @@ class LocationsList extends Component {
           address={address}
           className={className}
           tooltip={tooltip}
+          isFavorited={isFavorited}
           onSelectLocation={this.onSelectLocation}
         />
       );
@@ -95,4 +95,4 @@ class LocationsList extends Component {
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyCVH8e45o3d-5qmykzdhGKd1-3xYua5D2A'
-})(LocationsList)
+})(LocationsList);
