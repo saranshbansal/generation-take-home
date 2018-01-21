@@ -21,6 +21,7 @@ class LocationsList extends Component {
     let activeLocations = [...this.state.activeLocations] || [];
     let addFlg = true;
     let index = -1;
+    // check if locations is already present in favorites. If yes, remove it.
     Object.keys(activeLocations).map((i) => {
       if (activeLocations[i].name === name) {
         addFlg = false;
@@ -34,6 +35,8 @@ class LocationsList extends Component {
       this.setState({
         activeLocations
       });
+      // set it up in the global list to show markers on map.
+      this.props.addLocationForShowingMarkers(activeLocations);
     }
   };
 
@@ -43,13 +46,15 @@ class LocationsList extends Component {
     if (address && address.trim() !== '') {
       geocoder.geocode({ address }, function (results, status) {
         if (status == 'OK') {
-          console.log('Location found: [' + address + ': ' +results[0].geometry.location + ']');
+          console.log('Location found: [' + address + ': ' + results[0].geometry.location + ']');
           activeLocations.push({
             name, address, latlong: results[0].geometry.location
           });
           context.setState({
             activeLocations
           });
+          // set it up in the global list to show markers on map.
+          context.props.addLocationForShowingMarkers(activeLocations);
         } else {
           console.log('Cannot find the location.');
         }
