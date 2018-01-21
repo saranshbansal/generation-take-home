@@ -26,7 +26,17 @@ a {
     cursor: pointer;
 }
 
-.yellow {
+.green {
     background: #80D651 !important;;
     color: white;
+}
+
+.orange {
+    background: orange !important;;
+    color: white;
+}
+
+.error-msg {
+    font-size: smaller;
+    color: red;
 }

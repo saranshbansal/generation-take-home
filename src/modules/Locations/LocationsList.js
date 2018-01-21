@@ -48,7 +48,7 @@ class LocationsList extends Component {
         if (status == 'OK') {
           console.log('Location found: [' + address + ': ' + results[0].geometry.location + ']');
           activeLocations.push({
-            name, address, latlong: results[0].geometry.location
+            name, address, latlong: results[0].geometry.location, msg: ''
           });
           context.setState({
             activeLocations
@@ -56,7 +56,13 @@ class LocationsList extends Component {
           // set it up in the global list to show markers on map.
           context.props.addLocationForShowingMarkers(activeLocations);
         } else {
-          console.log('Cannot find the location.');
+          console.log('Cannot find the location on the map.');
+          activeLocations.push({
+            name, address, latlong: {}, msg: 'Cannot locate the store on map.'
+          });
+          context.setState({
+            activeLocations
+          });
         }
       });
     }
@@ -69,11 +75,13 @@ class LocationsList extends Component {
       let className = 'card card-info';
       let tooltip = 'Add to favorites';
       let isFavorited = false;
+      let msg = ''
       Object.keys(this.state.activeLocations).map((i) => {
         if (this.state.activeLocations[i].name === name) {
-          className='card card-success';
+          className = this.state.activeLocations[i].msg === '' ? 'card card-success' : 'card card-warning';
           tooltip='Remove from favorites';
           isFavorited = true;
+          msg = this.state.activeLocations[i].msg;
         }
       });
       return (
@@ -83,6 +91,7 @@ class LocationsList extends Component {
           address={address}
           className={className}
           tooltip={tooltip}
+          msg={msg}
           isFavorited={isFavorited}
           onSelectLocation={this.onSelectLocation}
         />
