@@ -30,11 +30,11 @@ export default class App extends Component {
 						</Navbar.Brand>
 					</Navbar.Header>
 				</Navbar>
-				<LocationList
-					addLocationForShowingMarkers={this.addLocationForShowingMarkers}
-				/>
 				<MapContainer
 					markerLocations={this.state.markerLocations}
+				/>
+				<LocationList
+					addLocationForShowingMarkers={this.addLocationForShowingMarkers}
 				/>
 			</div>
 		);

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Map, InfoWindow, Marker, Polygon, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import * as utils from './util';
 
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mapCenter: { lat: 23.6345, lng: -99.133209},
+      mapCenter: { lat: 19.4326, lng: -99.133209 },
       markerLocations: []
     }
   }
@@ -31,20 +31,16 @@ export class MapContainer extends Component {
       );
     });
     return (
-      <Map
-        google={this.props.google}
-        initialCenter={this.state.mapCenter}
-        zoom={6}
-      >
-        {markersJsx}
-        {/* <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}>
-          <div>
-            <h1>{this.state.selectedPlace.name}</h1>
-          </div>
-        </InfoWindow> */}
-      </Map>
+      <div className='map-container'>
+        <Map
+          google={this.props.google}
+          initialCenter={this.state.mapCenter}
+          gestureHandling='cooperative'
+          zoom={10}
+        >
+          {markersJsx}
+        </Map>
+      </div>
     );
   }
 }

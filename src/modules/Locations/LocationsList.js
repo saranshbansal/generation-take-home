@@ -79,7 +79,7 @@ class LocationsList extends Component {
       Object.keys(this.state.activeLocations).map((i) => {
         if (this.state.activeLocations[i].name === name) {
           className = this.state.activeLocations[i].msg === '' ? 'card card-success' : 'card card-warning';
-          tooltip='Remove from favorites';
+          tooltip = 'Remove from favorites';
           isFavorited = true;
           msg = this.state.activeLocations[i].msg;
         }
@@ -98,7 +98,12 @@ class LocationsList extends Component {
       );
     });
     return (
-      <div className="container" style={{marginTop: '60px'}}>
+      <div className="container location-container">
+      <div className="title">
+        <h1>
+          {'Store Locations'}
+        </h1>
+      </div>
         <div className="row">
           {optionsMarkup}
         </div>
