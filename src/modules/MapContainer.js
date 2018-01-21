@@ -6,14 +6,9 @@ export class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      mapCenter: { lat: 23.6345, lng: -99.133209},
       markerLocations: []
     }
-  }
-
-  componentWillMount() {
-    this.setState({
-      markerLocations: this.props.markerLocations
-    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -23,45 +18,6 @@ export class MapContainer extends Component {
       });
     }
   }
-
-  // onMapClicked(props) {
-  //   const addressArray = this.props.myData;
-  //   console.log(addressArray);
-
-  //   const google = this.props.google;
-  //   const geocoder = new google.maps.Geocoder();
-  //   let markersArray = [];
-  //   for (let i = 0; i < 5; i++) {
-  //     geocoder.geocode({ 'address': addressArray[i].Address }, function (results, status) {
-  //       if (status == 'OK') {
-  //         markersArray.push({
-  //           name: addressArray[i].Name,
-  //           position: results[0].geometry.location
-  //         });
-  //         this.setState({
-  //           markersArray
-  //         });
-  //       } else {
-  //         markersArray.push({
-  //           name: addressArray[i].Name,
-  //           position: { lat: 23.33, lng: 18.42 }
-  //         });
-  //         this.setState({
-  //           markersArray
-  //         });
-  //       }
-  //     });
-  //   }
-
-  //   if (this.state.showingInfoWindow) {
-  //     this.setState({
-  //       showingInfoWindow: false,
-  //       activeMarker: null
-  //     })
-  //   } else {
-
-  //   }
-  // }
 
   render() {
     let markersJsx = this.state.markerLocations.map((marker, index) => {
@@ -77,6 +33,7 @@ export class MapContainer extends Component {
     return (
       <Map
         google={this.props.google}
+        initialCenter={this.state.mapCenter}
         zoom={6}
       >
         {markersJsx}
