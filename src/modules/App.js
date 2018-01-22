@@ -10,13 +10,13 @@ export default class App extends Component {
 		super(props);
 		this.state = {
 			showModalFlg: false,
-			markerLocations: []
+			favoriteStores: []
 		}
 	}
 
-	addLocationForShowingMarkers = (markerLocations) => {
+	addLocationForShowingMarkers = (favoriteStores) => {
 		this.setState({
-			markerLocations
+			favoriteStores
 		});
 	};
 
@@ -38,17 +38,19 @@ export default class App extends Component {
 					<Nav>
 						<NavItem eventKey={1} onClick={() => { this.setState({ showModalFlg: true})}}>
 							<PinnedStoreList
-								favoriteStores={this.state.markerLocations}
+								favoriteStores={this.state.favoriteStores}
 								showModalFlg={this.state.showModalFlg}
 								openModalHandler={this.openModalHandler}
+								addLocationForShowingMarkers={this.addLocationForShowingMarkers}
 							/>
 						</NavItem>
 					</Nav>
 				</Navbar>
 				<MapContainer
-					markerLocations={this.state.markerLocations}
+					markerLocations={this.state.favoriteStores}
 				/>
 				<LocationList
+					favoriteStores={this.state.favoriteStores}
 					addLocationForShowingMarkers={this.addLocationForShowingMarkers}
 				/>
 			</div>

@@ -3,6 +3,20 @@ import { Button, Modal, Glyphicon } from 'react-bootstrap';
 import PinnedStoreRecord from './PinnedStoreRecord';
 
 class PinnedStoreList extends Component {
+    removeStoreFromFavorites = (e, store) => {
+        if (typeof e !== 'undefined') {
+            e.stopPropagation();
+        }
+        let favoriteStores = this.props.favoriteStores ? [...this.props.favoriteStores] : [];
+        Object.keys(favoriteStores).map((i) => {
+            if (favoriteStores[i].name === store.name) {
+                // remove this store from favs
+                favoriteStores.splice(i, 1);
+                // update global store list
+                this.props.addLocationForShowingMarkers(favoriteStores);
+            }
+        });
+    };
     render() {
         return (
             <div>
@@ -13,6 +27,7 @@ class PinnedStoreList extends Component {
                     <Modal.Body>
                         <PinnedStoreRecord
                             rowData={this.props.favoriteStores}
+                            removeStoreFromFavorites={this.removeStoreFromFavorites}
                         />
                     </Modal.Body>
                 </Modal>

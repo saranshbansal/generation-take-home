@@ -37,6 +37,7 @@ export class MapContainer extends Component {
         <Map
           google={this.props.google}
           initialCenter={this.state.mapCenter}
+          mapCenter={this.state.mapCenter}
           gestureHandling='cooperative'
           zoom={10}
         >
