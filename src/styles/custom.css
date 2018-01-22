@@ -57,3 +57,7 @@ a {
     text-align: center;
     padding: 5px;
 }
+
+.capitalize {
+    text-transform: capitalize;
+}

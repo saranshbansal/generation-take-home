@@ -21,14 +21,16 @@ export class MapContainer extends Component {
 
   render() {
     let markersJsx = this.state.markerLocations.map((marker, index) => {
-      return (
-        <Marker
-          key={index}
-          title={marker.name}
-          name={marker.name}
-          position={marker.latlong}
-        />
-      );
+      if (marker.latlong) {
+        return (
+          <Marker
+            key={index}
+            title={marker.name}
+            name={marker.name}
+            position={marker.latlong}
+          />
+        );
+      }
     });
     return (
       <div className='map-container'>

@@ -38,7 +38,7 @@ class LocationsList extends Component {
     }
   };
 
-  findLocation(name, address, activeLocations, context) {
+  findLocation = (name, address, activeLocations, context) => {
     const google = this.props.google;
     const geocoder = new google.maps.Geocoder();
     if (address && address.trim() !== '') {
@@ -48,23 +48,21 @@ class LocationsList extends Component {
           activeLocations.push({
             name, address, latlong: results[0].geometry.location, msg: ''
           });
-          context.setState({
-            activeLocations
-          });
-          // set it up in the global list to show markers on map.
-          context.props.addLocationForShowingMarkers(activeLocations);
         } else {
           console.log('Cannot find the location on the map.');
           activeLocations.push({
-            name, address, latlong: {}, msg: 'Cannot locate the store on map.'
-          });
-          context.setState({
-            activeLocations
+            name, address, latlong: null, msg: 'Cannot locate the store on map.'
           });
         }
+        // update state.
+        context.setState({
+          activeLocations
+        });
+        // set it up in the global list to show markers on map.
+        context.props.addLocationForShowingMarkers(activeLocations);
       });
     }
-  }
+  };
 
   render() {
     let optionsMarkup = Object.values(myData).map((row, index) => {
@@ -97,11 +95,11 @@ class LocationsList extends Component {
     });
     return (
       <div className="container location-container">
-      <div className="title">
-        <h1>
-          {'Store Locations'}
-        </h1>
-      </div>
+        <div className="title">
+          <h1>
+            {'Store Locations'}
+          </h1>
+        </div>
         <div className="row">
           {optionsMarkup}
         </div>
